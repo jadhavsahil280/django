@@ -1,0 +1,109 @@
+
+{% extends 'shop/base.html' %}
+{% block body %}
+    
+
+    <div class="container mt-5">
+
+        <form class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+            
+            <!-- Search Input -->
+            <div class="md:col-span-10">
+                <input 
+                    type="text" 
+                    name="search"
+                    placeholder="Search by Product Name"
+                    class="w-full bg-white px-4 py-3 border border-gray-300 shadow-sm text-gray-700"
+                >
+            </div>
+
+            <!-- Search Button -->
+            <div class="md:col-span-2">
+                <button 
+                    type="submit"
+                    class="w-full bg-green-600 text-white font-semibold py-3 px-6 shadow-md">
+                    Search
+                </button>
+            </div>
+        </form>
+
+
+        <div class="row mt-5">
+        {% for product in product_object %}
+        <div class="col-md-3">
+            <a href="{% url 'details' product.id %}" class="block text-dark text-decoration-none">
+            <div class="card p-3">
+                
+                <img src="{{product.image}}" class="h-[300px] justify-center" alt="">
+                <h6 class="card-title pt-4">
+                    {{product.title}}
+                </h6>
+                <div class="text-bold">
+                    ₹ {{product.discounted_price}}
+                </div>
+                <button type='submit' id='{{product.id}}' class='atc bg-orange-200 hover:bg-orange-600 hover:text-white mt-2 px-4 py-2 rounded-lg'>Add to cart</button>
+            </div>
+                </a>
+        </div>
+        {% endfor %}
+        </div>
+
+        <div class="flex justify-center mt-8">
+            <ul class="flex items-center gap-3">
+
+                {% if product_object.has_previous %}
+                <li>
+                    <a href="?page={{ product_object.previous_page_number }}"
+                    class="px-5 py-2 bg-gray-200 hover:bg-green-600 hover:text-white text-gray-700 rounded-lg shadow transition duration-300">
+                        ← Previous
+                    </a>
+                </li>
+                {% endif %}
+
+                <li>
+                    <span class="px-4 py-2 bg-green-600 text-white rounded-lg shadow">
+                        Page {{ product_object.number }} of {{ product_object.paginator.num_pages }}
+                    </span>
+                </li>
+
+                {% if product_object.has_next %}
+                <li>
+                    <a href="?page={{ product_object.next_page_number }}"
+                    class="px-5 py-2 bg-gray-200 hover:bg-green-600 hover:text-white text-gray-700 rounded-lg shadow transition duration-300">
+                        Next →
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+
+<script type='text/javascript'>
+
+    if(localStorage.getItem('cart')==null){
+        var cart = {};
+    }
+    else{
+        var cart = JSON.parse(localStorage.getItem('cart'));
+        
+    }
+
+    $(document).on('click', '.atc', function(e){
+        e.preventDefault();
+        
+        var item_id = this.id.toString();
+
+        if(cart[item_id] != undefined){
+            cart[item_id] += 1;
+        } else {
+            cart[item_id] = 1;
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        console.log(cart);
+        });
+
+</script>
+
+{% endblock body %}

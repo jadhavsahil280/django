@@ -1,0 +1,52 @@
+{% extends 'food/base.html' %}
+
+{% block body %}
+
+<div class="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center">
+
+    <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md text-center">
+
+        <!-- Profile Image -->
+        <div class="flex justify-center mb-4">
+            <img src="{{ user.profile.image.url }}"
+                 class="w-32 h-32 rounded-full object-cover border-4 border-blue-500 shadow-md">
+        </div>
+
+        <!-- Username -->
+        <h2 class="text-2xl font-bold text-gray-800">
+            {{ user.username }}
+        </h2>
+
+        <!-- Location -->
+        <p class="text-gray-500 mt-1">
+            📍 {{ user.profile.location }}
+        </p>
+
+        <!-- Divider -->
+        <div class="border-t my-6"></div>
+
+        <!-- Actions -->
+        <div class="flex justify-center gap-4">
+
+            <!-- Edit Profile -->
+            <a href="#"
+               class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                Edit Profile
+            </a>
+
+            <!-- Logout -->
+            <form method="POST" action="{% url 'users:logout' %}">
+                {% csrf_token %}
+                <button type="submit"
+                    class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+                    Logout
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

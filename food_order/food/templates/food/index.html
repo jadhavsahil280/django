@@ -1,0 +1,75 @@
+{% extends "food/base.html" %} 
+
+{% block body %}
+
+<section class="container py-5">
+
+    <div class="row g-4">
+        {% for item in item_list %}
+
+        <div class="col-md-6 col-lg-4">
+            <a href="{% url 'food:detail' item.id %}" class="text-decoration-none">
+
+                <div class="bg-white rounded-4 shadow-sm overflow-hidden hover-shadow transition-all">
+
+                    <!-- Image -->
+                    <div class="overflow-hidden">
+                        <img src="{{ item.item_image }}" 
+                             class="w-100 object-fit-cover transition-transform duration-300 hover-scale h-[400px]">
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-3">
+
+                        <h5 class="fw-bold text-dark mb-1">
+                            {{ item.item_name }}
+                        </h5>
+
+                        <p class="text-muted small mb-2">
+                            {{ item.item_desc }}
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            
+                            <span class="fw-bold text-success fs-5">
+                                ₹ {{ item.item_price }}
+                            </span>
+
+                            <div class="gap-x-8">
+                                <span class="badge bg-primary px-3 py-2">
+                                    View
+                                </span>
+
+                                <a href="{% url 'food:edit_item' item.id %}">
+                                    <span class="badge bg-yellow-950 px-3 py-2">
+                                        Edit
+                                    </span>
+                                </a>
+
+                                <button 
+                                    class="badge bg-red-700 px-3 py-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal{{ item.id }}">
+                                    Delete
+                                </button>
+
+                                
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </a>
+        </div>
+
+        {% include "food/model.html" %}
+
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock body %}
