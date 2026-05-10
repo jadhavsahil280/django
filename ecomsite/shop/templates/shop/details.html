@@ -2,69 +2,136 @@
 
 {% block body %}
 
-<div class="bg-gray-100 min-h-screen py-10">
+<div class="product-details-section py-5">
 
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="container">
 
-        <!-- Product Card -->
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div class="product-details-card">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+            <div class="row align-items-center g-5">
 
                 <!-- Product Image -->
-                <div class="flex justify-center items-center">
-                    <img 
-                        src="{{ product_object.image }}" 
-                        alt="{{ product_object.title }}"
-                        class="w-full object-contain h-[600px]"
-                    >
+                <div class="col-lg-6">
+
+                    <div class="product-image-wrapper">
+
+                        <img  id="image{{product_object.id}}"
+                            src="{{ product_object.image }}"
+                            alt="{{ product_object.title }}"
+                            class="product-details-image"
+                        >
+
+                    </div>
+
                 </div>
 
+
                 <!-- Product Details -->
-                <div class="flex flex-col justify-center">
+                <div class="col-lg-6">
 
                     <!-- Category -->
-                    <span class="inline-block bg-green-100 text-green-700 text-sm font-semibold px-4 py-1 rounded-full w-fit mb-4">
-                        {{ product_object.category }}
-                    </span>
+                    <div class="mb-3">
 
-                    <!-- Title -->
-                    <h1 class="text-4xl font-bold text-gray-800 mb-4">
-                        {{ product_object.title }}
-                    </h1>
+                        <span class="product-category">
 
-                    <!-- Pricing -->
-                    <div class="flex items-center gap-4 mb-6">
+                            {{ product_object.category }}
 
-                        <span class="text-3xl font-bold text-green-600">
-                            ₹{{ product_object.discounted_price }}
-                        </span>
-
-                        <span class="text-xl text-gray-400 line-through">
-                            ₹{{ product_object.price }}
                         </span>
 
                     </div>
 
-                    <!-- Buttons -->
-                    <div class="flex flex-wrap gap-4">
 
-                        <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition duration-300 hover:scale-105">
-                            Add to Cart
+                    <!-- Product Title -->
+                    <h1 id="name{{product_object.id}}" class="product-details-title">
+
+                        {{ product_object.title }}
+
+                    </h1>
+
+
+                    <!-- Pricing -->
+                    <div class="product-price-wrapper">
+                        
+
+                        <span class="discount-price">₹
+                            <span id="price{{product_object.id}}" >{{ product_object.discounted_price }}</span>
+
+                        </span>
+
+                        <span class="original-price">
+
+                            ₹{{ product_object.price }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Description -->
+                    <div class="product-description-box">
+
+                        <h4 class="description-heading">
+
+                            Product Description
+
+                        </h4>
+
+                        <p class="product-description">
+
+                            {{ product_object.description }}
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- Buttons -->
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+
+                        <button
+                            id="{{ product_object.id }}"
+                            class="btn add-cart-detail-btn atc"
+                        >
+                            Add To Cart
                         </button>
 
-                        <button class="border border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-xl font-semibold transition duration-300">
+                        <button
+                            class="btn buy-now-btn"
+                        >
                             Buy Now
                         </button>
 
                     </div>
 
-                    <!-- Description -->
-                    <p class="text-gray-600 leading-relaxed mb-8 mt-4">
-                        {{ product_object.description }}
-                    </p>
 
-                    
+                    <!-- Extra Features -->
+                    <div class="row mt-5 g-3">
+
+                        <div class="col-6">
+
+                            <div class="feature-box">
+
+                                <h5>Free Delivery</h5>
+
+                                <p>On orders above ₹499</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <div class="feature-box">
+
+                                <h5>Secure Payment</h5>
+
+                                <p>100% Protected</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -75,5 +142,7 @@
     </div>
 
 </div>
+
+
 
 {% endblock body %}
