@@ -22,5 +22,7 @@ app_name = "shop"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('shop/<id>', views.product_details, name='details')
+    path('shop/<id>', views.product_details, name='details'),
+    path('checkout', views.checkout, name='checkout'),
+    path('order-received', views.orderReceived, name="orderReceived")
 ]

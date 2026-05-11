@@ -25,6 +25,8 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'shop/style.css' %}">
 
+    {% block head %}{% endblock %}
+
 </head>
 
 <body>
@@ -225,6 +227,8 @@ cartBtn.addEventListener("click", function () {
         document.getElementById('cart-count').innerHTML =
             Object.keys(cart).length;
 
+         cart = JSON.parse(localStorage.getItem('cart'));
+
         // Refresh cart UI
         DisplayCart(cart);
 
@@ -315,9 +319,11 @@ function DisplayCart(cart){
 
             </div>
 
+            <a href="{% url 'checkout' %}">
             <button class="btn btn-primary btn-sm w-100 mt-3">
                 Checkout
             </button>
+        </a>
 
         </div>
         `;
@@ -328,4 +334,10 @@ function DisplayCart(cart){
 
     }
 </script>
+
+
+{% block script %}
+    
+{% endblock script %}
+    
 </html>
