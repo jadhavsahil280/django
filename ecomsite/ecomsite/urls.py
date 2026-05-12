@@ -24,5 +24,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('shop/<id>', views.product_details, name='details'),
     path('checkout', views.checkout, name='checkout'),
-    path('order-received', views.orderReceived, name="orderReceived")
+    path('order-received/<int:order_id>', views.orderReceived, name="orderReceived")
 ]

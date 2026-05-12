@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from .models import products, orders
 from django.core.paginator import Paginator
-
+import json
 # Create your views here.
 
 def index(request):
@@ -40,8 +40,25 @@ def checkout(request):
         order = orders(item=item, name=name, email=email, phone=phone, address=address, city=city, state=state, zip=zip)
         order.save()
 
+        return redirect('orderReceived', order_id = order.id)
+
         
     return render(request, 'shop/checkout.html')
 
-def orderReceived(request):
-    return render(request, 'shop/order-received.html')
+def orderReceived(request, order_id):
+    orderitem = orders.objects.get(id=order_id)
+    items = json.loads(orderitem.item)
+
+    cart_items = []
+    grand_total = 0
+
+    for item_id, item in  items.items():
+        subtotal = item['price'] * item['qty']
+        grand_total += subtotal
+        cart_items.append({**item, 'subtotal': subtotal, 'item_id': item_id})
+
+    return render(request, 'shop/order-received.html', {
+        'order': orderitem,
+        'cartitems': cart_items,
+        'grand_total': grand_total
+    })

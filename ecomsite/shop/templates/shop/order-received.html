@@ -8,7 +8,7 @@
 <div class="container">
   <!-- Title -->
   <div class="d-flex justify-content-between align-items-center py-3">
-    <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #16123222</h2>
+    <h2 class="h5 mb-0"><a href="#" class="text-muted"></a>Order Received #{{order.order_id}}</h2>
   </div>
 
   <!-- Main content -->
@@ -19,9 +19,9 @@
         <div class="card-body">
           <div class="mb-3 d-flex justify-content-between">
             <div>
-              <span class="me-3">22-11-2021</span>
-              <span class="me-3">#16123222</span>
-              <span class="me-3">Visa -1234</span>
+              <span class="me-3">{{order.created_at}}</span>
+              <span class="me-3">#{{order.order_id}}</span>
+              <span class="me-3">COD</span>
               <span class="badge rounded-pill bg-info">SHIPPING</span>
             </div>
             <div class="d-flex">
@@ -37,62 +37,51 @@
               </div>
             </div>
           </div>
+
           <table class="table table-borderless">
             <tbody>
+              {% for item in cartitems %}
+
               <tr>
                 <td>
                   <div class="d-flex mb-2">
                     <div class="flex-shrink-0">
-                      <img src="https://www.bootdey.com/image/280x280/87CEFA/000000" alt="" width="35" class="img-fluid">
+                      <img src="{{item.image}}" alt="" width="35" class="img-fluid">
                     </div>
                     <div class="flex-lg-grow-1 ms-3">
-                      <h6 class="small mb-0"><a href="#" class="text-reset">Wireless Headphones with Noise Cancellation Tru Bass Bluetooth HiFi</a></h6>
-                      <span class="small">Color: Black</span>
+                      <h6 class="small mb-0"><a href="{% url 'details' item.item_id %}" class="text-reset">{{item.name}}</a></h6>
+                      <span class="small">Price: ₹{{item.price}}</span>
                     </div>
                   </div>
                 </td>
-                <td>1</td>
-                <td class="text-end">$79.99</td>
+                <td>{{item.qty}}</td>
+                <td class="text-end">₹{{item.subtotal}}</td>
               </tr>
-              <tr>
-                <td>
-                  <div class="d-flex mb-2">
-                    <div class="flex-shrink-0">
-                      <img src="https://www.bootdey.com/image/280x280/FF69B4/000000" alt="" width="35" class="img-fluid">
-                    </div>
-                    <div class="flex-lg-grow-1 ms-3">
-                      <h6 class="small mb-0"><a href="#" class="text-reset">Smartwatch IP68 Waterproof GPS and Bluetooth Support</a></h6>
-                      <span class="small">Color: White</span>
-                    </div>
-                  </div>
-                </td>
-                <td>1</td>
-                <td class="text-end">$79.99</td>
-              </tr>
+              {% endfor %}
             </tbody>
             <tfoot>
               <tr>
                 <td colspan="2">Subtotal</td>
-                <td class="text-end">$159,98</td>
+                <td class="text-end">₹{{grand_total}}</td>
               </tr>
               <tr>
                 <td colspan="2">Shipping</td>
-                <td class="text-end">$20.00</td>
+                <td class="text-end">0</td>
               </tr>
               <tr>
-                <td colspan="2">Discount (Code: NEWYEAR)</td>
-                <td class="text-danger text-end">-$10.00</td>
+                <td colspan="2">Discount</td>
+                <td class="text-danger text-end">0</td>
               </tr>
               <tr class="fw-bold">
                 <td colspan="2">TOTAL</td>
-                <td class="text-end">$169,98</td>
+                <td class="text-end">₹{{grand_total}}</td>
               </tr>
             </tfoot>
           </table>
         </div>
       </div>
       <!-- Payment -->
-      <div class="card mb-4">
+      {% comment %} <div class="card mb-4">
         <div class="card-body">
           <div class="row">
             <div class="col-lg-6">
@@ -111,7 +100,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> {% endcomment %}
     </div>
     <div class="col-lg-4">
       <!-- Customer Notes -->
@@ -124,16 +113,17 @@
       <div class="card mb-4">
         <!-- Shipping information -->
         <div class="card-body">
-          <h3 class="h6">Shipping Information</h3>
+          {% comment %} <h3 class="h6">Shipping Information</h3>
           <strong>FedEx</strong>
           <span><a href="#" class="text-decoration-underline" target="_blank">FF1234567890</a> <i class="bi bi-box-arrow-up-right"></i> </span>
-          <hr>
+          <hr> {% endcomment %}
           <h3 class="h6">Address</h3>
           <address>
-            <strong>John Doe</strong><br>
-            1355 Market St, Suite 900<br>
-            San Francisco, CA 94103<br>
-            <abbr title="Phone">P:</abbr> (123) 456-7890
+            <strong>{{order.name}}</strong><br>
+            {{order.address}}<br>
+            {{order.city}}, {{order.state}} - {{order.zip}}<br>
+            <abbr title="Phone">Phone:</abbr> {{order.phone}}<br>
+            <abbr title="email">Email:</abbr> {{order.email}}
           </address>
         </div>
       </div>
@@ -144,3 +134,14 @@
 
   
 {% endblock body %}
+
+
+{% block script %}
+
+<script>
+  cart = {};
+  document.getElementById('cart-count').innerHTML = Object.keys(cart).length;
+</script>
+  
+{% endblock script %}
+  
