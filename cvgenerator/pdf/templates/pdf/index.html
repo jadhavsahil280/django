@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Generator</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="{% static 'pdf/style.css' %}">
+
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">CV Generator</a>
+
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Create CV</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6">
+                    <h1>Create Professional CV in Minutes</h1>
+
+                    <p>
+                        Build a stunning and modern resume instantly with our smart CV Generator.
+                        Add your details, skills, education and experience easily.
+                    </p>
+
+                    <a href="#cvform" class="btn btn-light btn-lg hero-btn">
+                        Start Creating
+                    </a>
+                </div>
+
+                <div class="col-lg-6 text-center">
+                    <img 
+                        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+                        class="img-fluid"
+                        style="max-height:400px;"
+                    >
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-5">
+        <div class="container">
+
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Why Choose Our CV Generator?</h2>
+                <p class="text-muted">
+                    Simple, fast and professional CV building experience.
+                </p>
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="bi bi-file-earmark-person"></i>
+                        <h4>Professional Templates</h4>
+                        <p>
+                            Modern and attractive resume layouts for all industries.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="bi bi-lightning-charge"></i>
+                        <h4>Fast Generation</h4>
+                        <p>
+                            Create your complete CV within minutes using our simple form.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="bi bi-download"></i>
+                        <h4>Easy Download</h4>
+                        <p>
+                            Download your professional CV instantly in PDF format.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section" id="cvform">
+        <div class="container">
+
+            <div class="form-card">
+
+                <div class="text-center mb-5">
+                    <h2 class="form-title">CV Generator Form</h2>
+                    <p class="text-muted">
+                        Fill all the details below to generate your professional CV.
+                    </p>
+                </div>
+
+                <form method="POST"> 
+                    {% csrf_token %}
+
+                    <!-- Personal Info -->
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Enter Full Name">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Job Title</label>
+                            <input type="text" name="job_title" class="form-control" placeholder="Software Developer">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="example@gmail.com">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" name="phone" class="form-control" placeholder="+91 9876543210">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" name="dob" class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Gender</label>
+                            <select name="gender" class="form-select">
+                                <option>Select Gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label class="form-label">Address</label>
+                            <textarea name="address" class="form-control" placeholder="Enter Address"></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Education -->
+                    <h4 class="mb-4 mt-3">Education Details</h4>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Degree</label>
+                            <input type="text" name="degree" class="form-control" placeholder="B.Tech">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">College / University</label>
+                            <input type="text" name="college" class="form-control" placeholder="XYZ University">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Passing Year</label>
+                            <input type="text" name="passing_year" class="form-control" placeholder="2025">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Percentage / CGPA</label>
+                            <input type="text" name="percentage" class="form-control" placeholder="8.5 CGPA">
+                        </div>
+
+                    </div>
+
+                    <!-- Experience -->
+                    <h4 class="mb-4 mt-3">Experience</h4>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" name="company_name" class="form-control" placeholder="ABC Pvt Ltd">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Experience</label>
+                            <input type="text" name="experience" class="form-control" placeholder="2 Years">
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label class="form-label">Job Description</label>
+                            <textarea name="job_desc" class="form-control"></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Skills -->
+                    <h4 class="mb-4 mt-3">Skills</h4>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Technical Skills</label>
+                            <textarea name="skills" class="form-control" placeholder="HTML, CSS, Bootstrap, Python"></textarea>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Languages Known</label>
+                            <textarea name="languages_known" class="form-control" placeholder="English, Hindi"></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Upload -->
+                    <h4 class="mb-4 mt-3">Upload Photo</h4>
+
+                    <div class="mb-4">
+                        <input type="file" name="photo" class="form-control">
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn-custom">
+                            Generate CV
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">
+                © 2026 CV Generator. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
