@@ -23,7 +23,9 @@ from pdf import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+    path('generate/<int:id>', views.cvGenerator, name='generatecv'),
+    path('download/<int:id>', views.downloadCV, name='downloadcv' )
 ]
 
 
